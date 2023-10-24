@@ -1,19 +1,18 @@
 <p align="center">
   <a href="https://nxtsrv.de/">
-    <img src="https://raw.githubusercontent.com/shoujii/NeXt-Server-Bookworm/master/includes/NeXt-logo.jpg">
+    <img src="https://raw.githubusercontent.com/shoujii/NeXt-Server-Lite/master/includes/NeXt-logo.jpg">
   </a>
 
-  <h3 align="center">NeXt-Server-Bookworm</h3>
+  <h3 align="center">NeXt-Server-Lite</h3>
 
   <p align="center">
-    Debian Bookworm Version of NeXt-Server Script.
+    Debian Lite Version of NeXt-Server Script.
     <br>
-    <a href="https://github.com/shoujii/NeXt-Server-Bookworm/wiki"><strong>NeXt-Server Wiki »</strong></a>
+    <a href="https://github.com/shoujii/NeXt-Server-Lite/wiki"><strong>NeXt-Server Wiki »</strong></a>
     <br>
     <br>
-    <a href="https://github.com/shoujii/NeXt-Server-Bookworm/issues/new">Report bug</a>
+    <a href="https://github.com/shoujii/NeXt-Server-Lite/issues/new">Report bug</a>
     ·
-    <a href="https://nxtsrv.de/">Blog</a>
   </p>
 </p>
 
@@ -62,7 +61,7 @@ Login with:
 otherwise the script will throw multiple errors!
 
 Install with [git]:
-- `cd /root/; apt update; apt install git -y; git clone https://github.com/shoujii/NeXt-Server-Bookworm; cd NeXt-Server-Bookworm; bash nxt.sh
+- `cd /root/; apt update; apt install git -y; git clone https://github.com/shoujii/NeXt-Server-Lite; cd NeXt-Server-Lite; bash nxt.sh
 `
 
 Install dev mode [git]:
@@ -71,10 +70,10 @@ DO NOT USE FOR PRODUCTION!
 
 The Mailserver and other features won't work!
 (This will create a fake Let's Encrypt Cert, you won't run into the limition of weekly cert's)
-- `cd /root/; apt update; apt install git -y; git clone https://github.com/shoujii/NeXt-Server-Bookworm; cd NeXt-Server-Bookworm; touch dev.conf; bash nxt.sh
+- `cd /root/; apt update; apt install git -y; git clone https://github.com/shoujii/NeXt-Server-Lite; cd NeXt-Server-Lite; touch dev.conf; bash nxt.sh
 `
 
-Read the [NeXt-Server Wiki](https://github.com/shoujii/NeXt-Server-Bookworm/wiki) for advanced information!
+Read the [NeXt-Server Wiki](https://github.com/shoujii/NeXt-Server-Lite/wiki) for advanced information!
 
 ## What's included
 
@@ -138,12 +137,12 @@ NeXt-Server-Bookworm/
 
 ## Bugs and feature requests
 
-Have a bug or a feature request? Please first read the [issue guidelines]() and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/shoujii/NeXt-Server-Bookworm/issues/new).
+Have a bug or a feature request? Please first read the [issue guidelines]() and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/shoujii/NeXt-Server-Lite/issues/new).
 
 
 ## Documentation
 
-The NeXt-Server documentation, included in this repository in the docs directory, is also available on the [NeXt-Server Wiki](https://github.com/shoujii/NeXt-Server-Bookworm/wiki).
+The NeXt-Server documentation, included in this repository in the docs directory, is also available on the [NeXt-Server Wiki](https://github.com/shoujii/NeXt-Server-Lite/wiki).
 
 ## Contributing
 
@@ -179,5 +178,5 @@ A big thanks to [George Liu], for some great lines of code!.
 
 ## Copyright and license
 
-Code and documentation copyright 2017-2022 the [NeXt-Server-Bookworm Authors](https://github.com/shoujii/NeXt-Server-Bookworm/graphs/contributors)
-Code released under the [GNU General Public License v3.0](https://github.com/shoujii/NeXt-Server-Bookworm/blob/master/LICENSE).
+Code and documentation copyright 2017-2022 the [NeXt-Server-Bookworm Authors](https://github.com/shoujii/NeXt-Server-Lite/graphs/contributors)
+Code released under the [GNU General Public License v3.0](https://github.com/shoujii/NeXt-Server-Lite/blob/master/LICENSE).
