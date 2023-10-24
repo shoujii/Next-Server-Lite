@@ -12,5 +12,5 @@ wget https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-${LIBRESSL_VERSION}.t
 tar -xzf libressl-${LIBRESSL_VERSION}.tar.gz
 cd libressl-${LIBRESSL_VERSION}
 ./configure
-make install -j $(nproc) >>"${make_log}" 2>>"${make_err_log}"
+make install -j $(nproc) 
 }

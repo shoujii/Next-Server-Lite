@@ -98,7 +98,7 @@ fi
 }
 
 function wget_tar() {
-wget --no-check-certificate $1 --tries=3 >>"${main_log}" 2>>"${err_log}"
+wget --no-check-certificate $1 --tries=3 
         ERROR=$?
         if [[ "$ERROR" != '0' ]]; then
       echo "Error: $1 download failed."
@@ -107,7 +107,7 @@ wget --no-check-certificate $1 --tries=3 >>"${main_log}" 2>>"${err_log}"
 }
 
 function tar_file() {
-tar -xzf $1 >>"${main_log}" 2>>"${err_log}"
+tar -xzf $1 
         ERROR=$?
         if [[ "$ERROR" != '0' ]]; then
       echo "Error: $1 is corrupted."
@@ -117,7 +117,7 @@ rm $1
 }
 
 function unzip_file() {
-unzip $1 >>"${main_log}" 2>>"${err_log}"
+unzip $1 
 	ERROR=$?
 	if [[ "$ERROR" != '0' ]]; then
       echo "Error: $1 is corrupted."
@@ -126,7 +126,7 @@ unzip $1 >>"${main_log}" 2>>"${err_log}"
 }
 
 function install_packages() {
-DEBIAN_FRONTEND=noninteractive apt -y install $1 >>"${main_log}" 2>>"${err_log}" || error_exit "Failed to install $1 packages"
+DEBIAN_FRONTEND=noninteractive apt -y install $1 "Failed to install $1 packages"
         ERROR=$?
         if [[ "$ERROR" != '0' ]]; then
       echo "Error: $1 had an error during installation."
@@ -135,7 +135,7 @@ DEBIAN_FRONTEND=noninteractive apt -y install $1 >>"${main_log}" 2>>"${err_log}"
 }
 
 function remove_packages() {
-DEBIAN_FRONTEND=noninteractive apt -y remove $1 >>"${main_log}" 2>>"${err_log}" || error_exit "Failed to remove $1 packages"
+DEBIAN_FRONTEND=noninteractive apt -y remove $1 "Failed to remove $1 packages"
         ERROR=$?
         if [[ "$ERROR" != '0' ]]; then
       echo "Error: $1 had an error during removing."

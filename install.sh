@@ -4,7 +4,7 @@ source /root/NeXt-Server-Lite/configs/sources.cfg
 
 install_start=`date +%s`
 
-progress_gauge "0" "Checking your system..."
+#progress_gauge "0" "Checking your system..."
 set_logs
 prerequisites
 setipaddrvars
@@ -13,34 +13,34 @@ check_system_before_start
 confighelper_userconfig
 
 mkdir /root/NeXt-Server-Lite/sources
-progress_gauge "0" "Installing System..."
+#progress_gauge "0" "Installing System..."
 install_system
 
-progress_gauge "1" "Installing LibreSSL..."
+#progress_gauge "1" "Installing LibreSSL..."
 install_libressl
 
-progress_gauge "31" "Installing OpenSSH..."
+#progress_gauge "31" "Installing OpenSSH..."
 install_openssh
 
-progress_gauge "32" "Installing fail2ban..."
+#progress_gauge "32" "Installing fail2ban..."
 install_fail2ban
 
-progress_gauge "33" "Installing MariaDB..."
+#progress_gauge "33" "Installing MariaDB..."
 install_mariadb
 
-progress_gauge "40" "Installing Nginx..."
+#progress_gauge "40" "Installing Nginx..."
 install_nginx
 
-progress_gauge "65" "Installing Let's Encrypt..."
+#progress_gauge "65" "Installing Let's Encrypt..."
 install_lets_encrypt
 
-progress_gauge "68" "Creating Let's Encrypt Certificate..."
+#progress_gauge "68" "Creating Let's Encrypt Certificate..."
 create_nginx_cert
 
-progress_gauge "74" "Installing PHP..."
+#progress_gauge "74" "Installing PHP..."
 install_php_8_2
 
-progress_gauge "96" "Installing Firewall..."
+#progress_gauge "96" "Installing Firewall..."
 install_firewall
 
 install_end=`date +%s`

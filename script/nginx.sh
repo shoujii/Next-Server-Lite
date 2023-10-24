@@ -57,9 +57,9 @@ NGINX_MODULES="--without-http_browser_module \
 --with-http_v3_module \
 --with-openssl=/root/NeXt-Server-Lite/sources/libressl-${LIBRESSL_VERSION}"
 
-./configure $NGINX_OPTIONS $NGINX_MODULES --with-cc-opt='-O2 -g -pipe -Wall -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong -m64 -mtune=generic' >>"${make_log}" 2>>"${make_err_log}"
-make -j $(nproc) >>"${make_log}" 2>>"${make_err_log}"  
-make install >>"${make_log}" 2>>"${make_err_log}" 
+./configure $NGINX_OPTIONS $NGINX_MODULES --with-cc-opt='-O2 -g -pipe -Wall -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong -m64 -mtune=generic' 
+make -j $(nproc)   
+make install  
 
 rm -R /root/NeXt-Server-Lite/sources/nginx-${NGINX_VERSION}
 

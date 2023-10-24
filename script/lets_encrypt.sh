@@ -12,7 +12,7 @@ cd /root/NeXt-Server-Lite/sources
 git clone https://github.com/Neilpang/acme.sh.git -q 
 cd ./acme.sh
 sleep 1
-./acme.sh --install --accountemail ${NXT_SYSTEM_EMAIL} >>"${main_log}" 2>>"${err_log}" || error_exit 
+./acme.sh --install --accountemail ${NXT_SYSTEM_EMAIL} 
 
 . ~/.bashrc 
 . ~/.profile 
@@ -24,8 +24,8 @@ systemctl -q stop nginx.service
 
 cd /root/NeXt-Server-Lite/sources/acme.sh/
 
-bash acme.sh --set-default-ca --server letsencrypt >>"${main_log}" 2>>"${err_log}" || error_exit
-bash acme.sh --issue --standalone --debug 2 --log -d ${MYDOMAIN} -d www.${MYDOMAIN} --keylength ec-384 >>"${main_log}" 2>>"${err_log}" || error_exit
+bash acme.sh --set-default-ca --server letsencrypt 
+bash acme.sh --issue --standalone --debug 2 --log -d ${MYDOMAIN} -d www.${MYDOMAIN} --keylength ec-384 
 
 ln -s /root/.acme.sh/${MYDOMAIN}_ecc/fullchain.cer /etc/nginx/ssl/${MYDOMAIN}-ecc.cer 
 ln -s /root/.acme.sh/${MYDOMAIN}_ecc/${MYDOMAIN}.key /etc/nginx/ssl/${MYDOMAIN}-ecc.key 
@@ -61,8 +61,8 @@ sed -i "s/"${HPKP1}"/HPKP1/g" /etc/nginx/security.conf
 sed -i "s/"${HPKP2}"/HPKP2/g" /etc/nginx/security.conf
 
 cd /root/NeXt-Server-Lite/sources/acme.sh/
-bash acme.sh --set-default-ca --server letsencrypt >>"${main_log}" 2>>"${err_log}" || error_exit
-bash acme.sh --issue --standalone --debug 2 --log -d ${MYDOMAIN} -d www.${MYDOMAIN} --keylength ec-384 >>"${main_log}" 2>>"${err_log}" || error_exit 
+bash acme.sh --set-default-ca --server letsencrypt 
+bash acme.sh --issue --standalone --debug 2 --log -d ${MYDOMAIN} -d www.${MYDOMAIN} --keylength ec-384 
 
 ln -s /root/.acme.sh/${MYDOMAIN}_ecc/fullchain.cer /etc/nginx/ssl/${MYDOMAIN}-ecc.cer 
 ln -s /root/.acme.sh/${MYDOMAIN}_ecc/${MYDOMAIN}.key /etc/nginx/ssl/${MYDOMAIN}-ecc.key 

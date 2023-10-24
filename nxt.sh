@@ -105,7 +105,6 @@ fi
 if [[ ${NXT_IS_INSTALLED} == '1' ]]; then
         update_nginx_cert
         echo "Updated your Let's Encrypt Certificate!"
-    fi
 else
     echo "You have to install the NeXt Server to update  Let's Encrypt Certificate!"
     continue_to_menu

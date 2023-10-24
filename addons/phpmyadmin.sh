@@ -20,7 +20,7 @@ export COMPOSER_ALLOW_SUPERUSER=1
 composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev
 
 if [ "${PHPMYADMIN_PATH_NAME}" == "phpmyadmin" ]; then
-	echo "phpmyadmin path unchanged" >>"${main_log}" 2>>"${err_log}"
+	echo "phpmyadmin path unchanged" 
 else
 	mkdir -p /var/www/${MYDOMAIN}/public/${PHPMYADMIN_PATH_NAME}
 	mv phpmyadmin/* /var/www/${MYDOMAIN}/public/${PHPMYADMIN_PATH_NAME}/

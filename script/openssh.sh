@@ -39,7 +39,7 @@ echo "#SSH_PASS: ${SSH_PASS}" >> /root/NeXt-Server-Lite/login_information.txt
 echo "#------------------------------------------------------------------------------#" >> /root/NeXt-Server-Lite/login_information.txt
 echo "" >> /root/NeXt-Server-Lite/login_information.txt
 
-ssh-keygen -f ~/ssh.key -t ed25519 -N ${SSH_PASS} >>"${main_log}" 2>>"${err_log}" || error_exit
+ssh-keygen -f ~/ssh.key -t ed25519 -N ${SSH_PASS} 
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
 cat ~/ssh.key.pub > ~/.ssh/authorized_keys2 && rm ~/ssh.key.pub
 chmod 600 ~/.ssh/authorized_keys2
