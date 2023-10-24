@@ -4,14 +4,14 @@ install_wordpress() {
 
 trap error_exit ERR
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 get_domain
 
 WORDPRESS_USER=$(username)
 WORDPRESS_DB_NAME=$(username)
 WORDPRESS_DB_PASS=$(password)
 WORDPRESS_DB_PREFIX=$(username)
-MYSQL_ROOT_PASS=$(grep -Pom 1 "(?<=^MYSQL_ROOT_PASS: ).*$" /root/NeXt-Server-Bookworm/login_information.txt)
+MYSQL_ROOT_PASS=$(grep -Pom 1 "(?<=^MYSQL_ROOT_PASS: ).*$" /root/NeXt-Server-Lite/login_information.txt)
 
 mysql -u root -p${MYSQL_ROOT_PASS} -e "CREATE DATABASE ${WORDPRESS_DB_NAME};"
 mysql -u root -p${MYSQL_ROOT_PASS} -e "CREATE USER ${WORDPRESS_USER}@localhost IDENTIFIED BY '${WORDPRESS_DB_PASS}';"
@@ -65,30 +65,30 @@ chown www-data:www-data -R *
 find . -type f -exec chmod 644 {} \;
 find . -type d -exec chmod 755 {} \;
 
-cp /root/NeXt-Server-Bookworm/addons/vhosts/_wordpress.conf /etc/nginx/_wordpress.conf
+cp /root/NeXt-Server-Lite/addons/vhosts/_wordpress.conf /etc/nginx/_wordpress.conf
 sed_replace_word "#include _wordpress.conf;" "include _wordpress.conf;" "/etc/nginx/sites-available/${MYDOMAIN}.conf"
 
-touch /root/NeXt-Server-Bookworm/wordpress_login_data.txt
-echo "--------------------------------------------" >> /root/NeXt-Server-Bookworm/wordpress_login_data.txt
-echo "Wordpress" >> /root/NeXt-Server-Bookworm/wordpress_login_data.txt
-echo "--------------------------------------------" >> /root/NeXt-Server-Bookworm/wordpress_login_data.txt
+touch /root/NeXt-Server-Lite/wordpress_login_data.txt
+echo "--------------------------------------------" >> /root/NeXt-Server-Lite/wordpress_login_data.txt
+echo "Wordpress" >> /root/NeXt-Server-Lite/wordpress_login_data.txt
+echo "--------------------------------------------" >> /root/NeXt-Server-Lite/wordpress_login_data.txt
 if [ "$WORDPRESS_PATH_NAME" != "root" ]; then
-  echo "https://${MYDOMAIN}/${WORDPRESS_PATH_NAME}" >> /root/NeXt-Server-Bookworm/wordpress_login_data.txt
+  echo "https://${MYDOMAIN}/${WORDPRESS_PATH_NAME}" >> /root/NeXt-Server-Lite/wordpress_login_data.txt
 else
-  echo "https://${MYDOMAIN}/" >> /root/NeXt-Server-Bookworm/wordpress_login_data.txt
+  echo "https://${MYDOMAIN}/" >> /root/NeXt-Server-Lite/wordpress_login_data.txt
 fi
-echo "WordpressDBUser = ${WORDPRESS_USER}" >> /root/NeXt-Server-Bookworm/wordpress_login_data.txt
-echo "WordpressDBName = ${WORDPRESS_DB_NAME}" >> /root/NeXt-Server-Bookworm/wordpress_login_data.txt
-echo "WordpressDBPassword = ${WORDPRESS_DB_PASS}" >> /root/NeXt-Server-Bookworm/wordpress_login_data.txt
-echo "WordpressScriptPath = ${WORDPRESS_PATH_NAME}" >> /root/NeXt-Server-Bookworm/wordpress_login_data.txt
+echo "WordpressDBUser = ${WORDPRESS_USER}" >> /root/NeXt-Server-Lite/wordpress_login_data.txt
+echo "WordpressDBName = ${WORDPRESS_DB_NAME}" >> /root/NeXt-Server-Lite/wordpress_login_data.txt
+echo "WordpressDBPassword = ${WORDPRESS_DB_PASS}" >> /root/NeXt-Server-Lite/wordpress_login_data.txt
+echo "WordpressScriptPath = ${WORDPRESS_PATH_NAME}" >> /root/NeXt-Server-Lite/wordpress_login_data.txt
 
-sed_replace_word "WORDPRESS_IS_INSTALLED=\"0"\" "WORDPRESS_IS_INSTALLED=\"1"\" "/root/NeXt-Server-Bookworm/configs/userconfig.cfg"
-echo "$WORDPRESS_PATH_NAME" >> /root/NeXt-Server-Bookworm/configs/blocked_paths.conf
+sed_replace_word "WORDPRESS_IS_INSTALLED=\"0"\" "WORDPRESS_IS_INSTALLED=\"1"\" "/root/NeXt-Server-Lite/configs/userconfig.cfg"
+echo "$WORDPRESS_PATH_NAME" >> /root/NeXt-Server-Lite/configs/blocked_paths.conf
 
 systemctl -q restart php$PHPVERSION8-fpm.service
 systemctl restart nginx
 
 dialog_msg "Please save the shown login information on next page"
-cat /root/NeXt-Server-Bookworm/wordpress_login_data.txt
+cat /root/NeXt-Server-Lite/wordpress_login_data.txt
 continue_or_exit
 }

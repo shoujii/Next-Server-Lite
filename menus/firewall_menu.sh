@@ -2,7 +2,7 @@
 
 menu_options_firewall() {
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 
 HEIGHT=40
 WIDTH=80

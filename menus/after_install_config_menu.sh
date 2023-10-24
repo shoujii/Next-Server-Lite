@@ -2,7 +2,7 @@
 
 menu_options_after_install() {
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 
 HEIGHT=40
 WIDTH=80
@@ -47,7 +47,7 @@ case $CHOICE in
 ;;
 
 5)
-  bash /root/NeXt-Server-Bookworm/nxt.sh
+  bash /root/NeXt-Server-Lite/nxt.sh
 ;;
 
 6)

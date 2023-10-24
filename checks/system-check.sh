@@ -61,14 +61,14 @@ else
   echo "${error} le_cert_alert cron does NOT exist" >>"${failed_checks_log}"
 fi
 
-if [ -e /root/NeXt-Server-Bookworm/login_information.txt ]; then
+if [ -e /root/NeXt-Server-Lite/login_information.txt ]; then
   passed_system_checks=$((passed_system_checks + 1))
 else
   failed_system_checks=$((failed_system_checks + 1))
   echo "${error} login_information.txt does NOT exist" >>"${failed_checks_log}"
 fi
 
-if [ -e /root/NeXt-Server-Bookworm/dns_settings.txt ]; then
+if [ -e /root/NeXt-Server-Lite/dns_settings.txt ]; then
   passed_system_checks=$((passed_system_checks + 1))
 else
   failed_system_checks=$((failed_system_checks + 1))
@@ -79,7 +79,7 @@ echo "System:"
 echo "${ok} ${passed_system_checks} checks passed!"
 
 if [[ "${failed_system_checks}" != "0" ]]; then
-  echo "${error} ${failed_system_checks} check/s failed! Please check /root/NeXt-Server-Bookworm/logs/failed_checks.log or consider a new installation!"
+  echo "${error} ${failed_system_checks} check/s failed! Please check /root/NeXt-Server-Lite/logs/failed_checks.log or consider a new installation!"
 fi
 echo ""
 }

@@ -6,7 +6,7 @@ trap error_exit ERR
 
 install_packages "psmisc libpcre3 libpcre3-dev libgeoip-dev zlib1g-dev"
 
-cd /root/NeXt-Server-Bookworm/sources
+cd /root/NeXt-Server-Lite/sources
 wget_tar "https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz"
 tar_file "nginx-${NGINX_VERSION}.tar.gz"
 cd nginx-${NGINX_VERSION} 
@@ -55,13 +55,13 @@ NGINX_MODULES="--without-http_browser_module \
 --with-http_mp4_module \
 --with-http_gunzip_module \
 --with-http_v3_module \
---with-openssl=/root/NeXt-Server-Bookworm/sources/libressl-${LIBRESSL_VERSION}"
+--with-openssl=/root/NeXt-Server-Lite/sources/libressl-${LIBRESSL_VERSION}"
 
 ./configure $NGINX_OPTIONS $NGINX_MODULES --with-cc-opt='-O2 -g -pipe -Wall -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong -m64 -mtune=generic' >>"${make_log}" 2>>"${make_err_log}"
 make -j $(nproc) >>"${make_log}" 2>>"${make_err_log}"  
 make install >>"${make_log}" 2>>"${make_err_log}" 
 
-rm -R /root/NeXt-Server-Bookworm/sources/nginx-${NGINX_VERSION}
+rm -R /root/NeXt-Server-Lite/sources/nginx-${NGINX_VERSION}
 
 mkdir -p /var/lib/nginx/{body,proxy,fastcgi,uwsgi,scgi}
 mkdir -p /etc/nginx/{sites,ssl,sites-available,sites-enabled,htpasswd}
@@ -71,14 +71,14 @@ mkdir -p /var/www/${MYDOMAIN}/public
 mkdir -p /var/cache/nginx
 mkdir -p /var/log/nginx/
 
-cp /root/NeXt-Server-Bookworm/configs/nginx/confs/nginx.service /lib/systemd/system/
+cp /root/NeXt-Server-Lite/configs/nginx/confs/nginx.service /lib/systemd/system/
 systemctl enable nginx.service
 
 rm -rf /etc/nginx/nginx.conf
-cp /root/NeXt-Server-Bookworm/configs/nginx/confs/* /etc/nginx/
+cp /root/NeXt-Server-Lite/configs/nginx/confs/* /etc/nginx/
 
 rm -rf /etc/nginx/sites-available/${MYDOMAIN}.conf
-cp /root/NeXt-Server-Bookworm/configs/nginx/vhost /etc/nginx/sites-available/${MYDOMAIN}.conf
+cp /root/NeXt-Server-Lite/configs/nginx/vhost /etc/nginx/sites-available/${MYDOMAIN}.conf
 sed_replace_word "MYDOMAIN" "${MYDOMAIN}" "/etc/nginx/sites-available/${MYDOMAIN}.conf"
 
 if [[ ${IPV4_ONLY} = "1" ]]; then
@@ -99,6 +99,6 @@ fi
 chown -R www-data:www-data /var/www/${MYDOMAIN}/public
 ln -s /etc/nginx/sites-available/${MYDOMAIN}.conf /etc/nginx/sites-enabled/${MYDOMAIN}.conf
 
-cp /root/NeXt-Server-Bookworm/includes/NeXt-logo.jpg /var/www/${MYDOMAIN}/public/NeXt-logo.jpg
-cp /root/NeXt-Server-Bookworm/configs/nginx/index.html /var/www/${MYDOMAIN}/public/index.html
+cp /root/NeXt-Server-Lite/includes/NeXt-logo.jpg /var/www/${MYDOMAIN}/public/NeXt-logo.jpg
+cp /root/NeXt-Server-Lite/configs/nginx/index.html /var/www/${MYDOMAIN}/public/index.html
 }

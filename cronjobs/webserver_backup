@@ -1,33 +1,33 @@
 #!/bin/bash
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 
 BACKUP_DATE=$(date +"%d-%m-%Y_%H_%M_%S")
 
-mkdir -p /root/NeXt-Server-Bookworm/backups/{databases,ftpbackup,logs}
-touch /root/NeXt-Server-Bookworm/backups/logs/backup.log
-touch /root/NeXt-Server-Bookworm/backups/logs/backup_error.log
+mkdir -p /root/NeXt-Server-Lite/backups/{databases,ftpbackup,logs}
+touch /root/NeXt-Server-Lite/backups/logs/backup.log
+touch /root/NeXt-Server-Lite/backups/logs/backup_error.log
 
 #MYSQL backup
-MYSQL_ROOT_PASS=$(grep -Pom 1 "(?<=^MYSQL_ROOT_PASS: ).*$" /root/NeXt-Server-Bookworm/login_information.txt)
+MYSQL_ROOT_PASS=$(grep -Pom 1 "(?<=^MYSQL_ROOT_PASS: ).*$" /root/NeXt-Server-Lite/login_information.txt)
 
 # Error: The database is in a .tgz archive. Unpack this, you get a .tar. However, this must be renamed to .sql.
 databases=`/usr/bin/mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" -e "SHOW DATABASES;" | grep -Ev "(Database|mysql|information_schema|performance_schema)"`
 for db in $databases; do
-  /usr/bin/mysqldump --force --opt --user="root" --password="${MYSQL_ROOT_PASSWORD}" --databases $db | gzip -c > "/root/NeXt-Server-Bookworm/backups/databases/$db-$BACKUP_DATE.sql.gz"
+  /usr/bin/mysqldump --force --opt --user="root" --password="${MYSQL_ROOT_PASSWORD}" --databases $db | gzip -c > "/root/NeXt-Server-Lite/backups/databases/$db-$BACKUP_DATE.sql.gz"
 done
 
 #Webserver backup
 if [ -d "/var/www/${MYDOMAIN}/public" ]; then
-  SPLEFT=$(df --output=avail "/root/NeXt-Server-Bookworm/backups/ftpbackup" | grep -oE '^[[:digit:]]+')
+  SPLEFT=$(df --output=avail "/root/NeXt-Server-Lite/backups/ftpbackup" | grep -oE '^[[:digit:]]+')
   # must have 15% free disk space after operation, change for desired value; 
   REQSPACELEFT=15
-  CUR_DC=$(df -B 1K --output=size "/root/NeXt-Server-Bookworm/backups/ftpbackup" | grep -oE '[[:digit:]]{2,}')
+  CUR_DC=$(df -B 1K --output=size "/root/NeXt-Server-Lite/backups/ftpbackup" | grep -oE '[[:digit:]]{2,}')
   CUR_DU=$(expr "$(du -s "/var/www/${MYDOMAIN}/public/" | grep -oE '^[[:digit:]]+')" + "$(expr ${CUR_DC} \* ${REQSPACELEFT} / 100)")
   if [ "${SPLEFT}" -gt "${CUR_DU}" ]; then
     cd /var/www/${MYDOMAIN}/public
-    tar -cpzf "/root/NeXt-Server-Bookworm/backups/ftpbackup/${MYDOMAIN}-$BACKUP_DATE.tgz" * >>/root/NeXt-Server-Bookworm/backups/logs/backup_error.log 2>&1 >>/root/NeXt-Server-Bookworm/backups/logs/backup.log
-    readarray -d '' OLDBKUP < <(find "/root/NeXt-Server-Bookworm/backups/ftpbackup/" -type f -ctime +3 -print0)
+    tar -cpzf "/root/NeXt-Server-Lite/backups/ftpbackup/${MYDOMAIN}-$BACKUP_DATE.tgz" * >>/root/NeXt-Server-Lite/backups/logs/backup_error.log 2>&1 >>/root/NeXt-Server-Lite/backups/logs/backup.log
+    readarray -d '' OLDBKUP < <(find "/root/NeXt-Server-Lite/backups/ftpbackup/" -type f -ctime +3 -print0)
     if [ "${#OLDBKUP[@]}" -gt "0" ]; then
       for del_elem in "${OLDBKUP[@]}"; do
         rm "${del_elem}"

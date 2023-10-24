@@ -4,7 +4,7 @@ start_after_install() {
 
   trap error_exit ERR
 
-  source /root/NeXt-Server-Bookworm/configs/sources.cfg
+  source /root/NeXt-Server-Lite/configs/sources.cfg
 
   check_nginx && continue_or_exit
   check_php && continue_or_exit
@@ -16,7 +16,7 @@ start_after_install() {
   show_ssh_key && continue_or_exit
 
   dialog_msg "Please save the shown login information on next page"
-  cat /root/NeXt-Server-Bookworm/login_information.txt && continue_or_exit
+  cat /root/NeXt-Server-Lite/login_information.txt && continue_or_exit
 
   create_private_key
 

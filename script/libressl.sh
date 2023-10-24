@@ -6,7 +6,7 @@ trap error_exit ERR
 
 install_packages "libtool perl"
 
-cd /root/NeXt-Server-Bookworm/sources
+cd /root/NeXt-Server-Lite/sources
 ##change to functions
 wget https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-${LIBRESSL_VERSION}.tar.gz
 tar -xzf libressl-${LIBRESSL_VERSION}.tar.gz

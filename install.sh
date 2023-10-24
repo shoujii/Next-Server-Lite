@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 
 install_start=`date +%s`
 
@@ -12,7 +12,7 @@ check_system_before_start
 
 confighelper_userconfig
 
-mkdir /root/NeXt-Server-Bookworm/sources
+mkdir /root/NeXt-Server-Lite/sources
 progress_gauge "0" "Installing System..."
 install_system
 
@@ -46,10 +46,10 @@ install_firewall
 install_end=`date +%s`
 runtime=$((install_end-install_start))
 
-sed -i 's/NXT_IS_INSTALLED="0"/NXT_IS_INSTALLED="1"/' /root/NeXt-Server-Bookworm/configs/userconfig.cfg
+sed -i 's/NXT_IS_INSTALLED="0"/NXT_IS_INSTALLED="1"/' /root/NeXt-Server-Lite/configs/userconfig.cfg
 
 date=$(date +"%d-%m-%Y")
-sed -i 's/NXT_INSTALL_DATE="0"/NXT_INSTALL_DATE="'${date}'"/' /root/NeXt-Server-Bookworm/configs/userconfig.cfg
-sed -i 's/NXT_INSTALL_TIME_SECONDS="0"/NXT_INSTALL_TIME_SECONDS="'${runtime}'"/' /root/NeXt-Server-Bookworm/configs/userconfig.cfg
+sed -i 's/NXT_INSTALL_DATE="0"/NXT_INSTALL_DATE="'${date}'"/' /root/NeXt-Server-Lite/configs/userconfig.cfg
+sed -i 's/NXT_INSTALL_TIME_SECONDS="0"/NXT_INSTALL_TIME_SECONDS="'${runtime}'"/' /root/NeXt-Server-Lite/configs/userconfig.cfg
 
 start_after_install

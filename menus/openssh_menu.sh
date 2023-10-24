@@ -2,7 +2,7 @@
 
 menu_options_openssh() {
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 
 HEIGHT=40
 WIDTH=80
@@ -56,7 +56,7 @@ if [[ $INPUT_NEW_SSH_PORT =~ ^-?[0-9]+$ ]]; then
        dialog_msg "Your Input has more than 3 numbers, please try again"
        dialog --clear
     else
-        array=($(cat "/root/NeXt-Server-Bookworm/configs/blocked_ports.conf"))
+        array=($(cat "/root/NeXt-Server-Lite/configs/blocked_ports.conf"))
         printf -v array_str -- ',,%q' "${array[@]}"
         while true
         do
@@ -69,11 +69,11 @@ if [[ $INPUT_NEW_SSH_PORT =~ ^-?[0-9]+$ ]]; then
                 break
             fi
         done
-        echo "#------------------------------------------------------------------------------#" >> /root/NeXt-Server-Bookworm/login_information.txt
-        echo "#Date of change $(date +"%d-%m-%Y_%H_%M_%S")" >> /root/NeXt-Server-Bookworm/login_information.txt
-        echo "#NEW_SSH_PORT: $NEW_SSH_PORT" >> /root/NeXt-Server-Bookworm/login_information.txt
-        echo "#------------------------------------------------------------------------------#" >> /root/NeXt-Server-Bookworm/login_information.txt
-        echo "" >> /root/NeXt-Server-Bookworm/login_information.txt
+        echo "#------------------------------------------------------------------------------#" >> /root/NeXt-Server-Lite/login_information.txt
+        echo "#Date of change $(date +"%d-%m-%Y_%H_%M_%S")" >> /root/NeXt-Server-Lite/login_information.txt
+        echo "#NEW_SSH_PORT: $NEW_SSH_PORT" >> /root/NeXt-Server-Lite/login_information.txt
+        echo "#------------------------------------------------------------------------------#" >> /root/NeXt-Server-Lite/login_information.txt
+        echo "" >> /root/NeXt-Server-Lite/login_information.txt
         systemctl -q restart ssh
         break
     fi
@@ -93,14 +93,14 @@ create_new_openssh_key
 dialog_msg "Finished creating new ssh key"
 echo
 echo
-echo "You can find your New SSH key at /root/NeXt-Server-Bookworm/ssh_privatekey.txt"
+echo "You can find your New SSH key at /root/NeXt-Server-Lite/ssh_privatekey.txt"
 echo
 echo
 echo "Password for your new ssh key = $NEW_SSH_PASS"
 echo
 echo
 echo "Your new SSH Key"
-cat /root/NeXt-Server-Bookworm/ssh_privatekey.txt
+cat /root/NeXt-Server-Lite/ssh_privatekey.txt
 continue_or_exit
 menu_options_openssh
 ;;

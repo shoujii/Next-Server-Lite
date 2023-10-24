@@ -8,14 +8,14 @@ if [ $(dpkg-query -l | grep dialog | wc -l) -ne 3 ]; then
     apt -qq install dialog >/dev/null 2>&1
 fi
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 
-dev_mode=/root/NeXt-Server-Bookworm/dev.conf
+dev_mode=/root/NeXt-Server-Lite/dev.conf
 if [ -f "$dev_mode" ]; then
-    sed_replace_word "ec-384" "ec-384 --staging" "/root/NeXt-Server-Bookworm/script/lets_encrypt.sh"
-    sed_replace_word "1.1.1.1" "46.38.225.230" "/root/NeXt-Server-Bookworm/script/functions.sh"
-    sed -i '100,109 s/^/#/' /root/NeXt-Server-Bookworm/confighelper.sh
-    sed -i '17,18 s/^/#/' /root/NeXt-Server-Bookworm/script/checksystem.sh
+    sed_replace_word "ec-384" "ec-384 --staging" "/root/NeXt-Server-Lite/script/lets_encrypt.sh"
+    sed_replace_word "1.1.1.1" "46.38.225.230" "/root/NeXt-Server-Lite/script/functions.sh"
+    sed -i '100,109 s/^/#/' /root/NeXt-Server-Lite/confighelper.sh
+    sed -i '17,18 s/^/#/' /root/NeXt-Server-Lite/script/checksystem.sh
     set -x
 fi
 
@@ -51,7 +51,7 @@ CHOICE=$(dialog --clear \
 clear
 case $CHOICE in
 1)
-if [[ ${NXT_IS_INSTALLED} == '1' ]] == '1'; then
+if [[ ${NXT_IS_INSTALLED} == '1' ]]; then
     echo "The NeXt-Server Script is already installed!"
     continue_to_menu
 else
@@ -102,14 +102,8 @@ fi
 ;;
 
 7)
-if [[ ${NXT_IS_INSTALLED} == '1' ]] || [[ ${NXT_IS_INSTALLED_MAILSERVER} == '1' ]]; then
-    if [[ ${NXT_IS_INSTALLED} == '1' ]] && [[ ${NXT_IS_INSTALLED_MAILSERVER} == '0' ]]; then
+if [[ ${NXT_IS_INSTALLED} == '1' ]]; then
         update_nginx_cert
-        echo "Updated your Let's Encrypt Certificate!"
-    fi
-    if [[ ${NXT_IS_INSTALLED} == '1' ]] && [[ ${NXT_IS_INSTALLED_MAILSERVER} == '1' ]]; then
-        update_nginx_cert
-        update_mailserver_cert
         echo "Updated your Let's Encrypt Certificate!"
     fi
 else

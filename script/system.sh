@@ -4,18 +4,18 @@ install_system() {
 
 trap error_exit ERR
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 
 rm /etc/network/interfaces
 if [[ ${IPV4_ONLY} = "1" ]]; then
-  cp -f /root/NeXt-Server-Bookworm/configs/IPv4.interface /etc/network/interfaces
+  cp -f /root/NeXt-Server-Lite/configs/IPv4.interface /etc/network/interfaces
   sed_replace_word "INTERFACENAME" "${INTERFACE}" "/etc/network/interfaces"
   sed_replace_word "IPV4ADDR" "${IPADR}" "/etc/network/interfaces"
   sed_replace_word "IPV4GATE" "${IPV4GAT}" "/etc/network/interfaces"
 fi
 
 if [[ ${IPV6_ONLY} = "1" ]]; then
-  cp -f /root/NeXt-Server-Bookworm/configs/IPv6.interface /etc/network/interfaces
+  cp -f /root/NeXt-Server-Lite/configs/IPv6.interface /etc/network/interfaces
   sed_replace_word "INTERFACENAME" "${INTERFACE}" "/etc/network/interfaces"
   sed_replace_word "IPV6ADDR" "${IP6ADR}" "/etc/network/interfaces"
   sed_replace_word "IPV6GATE" "${IPV6GAT}" "/etc/network/interfaces"
@@ -23,7 +23,7 @@ if [[ ${IPV6_ONLY} = "1" ]]; then
 fi
 
 if [[ ${IP_DUAL} = "1" ]]; then
-  cp -f /root/NeXt-Server-Bookworm/configs/IPv4-IPv6.interface /etc/network/interfaces
+  cp -f /root/NeXt-Server-Lite/configs/IPv4-IPv6.interface /etc/network/interfaces
   sed_replace_word "INTERFACENAME" "${INTERFACE}" "/etc/network/interfaces"
   sed_replace_word "IPV4ADDR" "${IPADR}" "/etc/network/interfaces"
   sed_replace_word "IPV4GATE" "${IPV4GAT}" "/etc/network/interfaces"
@@ -51,7 +51,7 @@ echo $(hostname -f) > /etc/mailname
 TIMEZONE_DETECTED=$(wget http://ip-api.com/line/${IPADR}?fields=timezone -q -O -)
 timedatectl set-timezone ${TIMEZONE_DETECTED}
 
-sed_replace_word "EMPTY_TIMEZONE" "${TIMEZONE_DETECTED}" "/root/NeXt-Server-Bookworm/configs/userconfig.cfg"
+sed_replace_word "EMPTY_TIMEZONE" "${TIMEZONE_DETECTED}" "/root/NeXt-Server-Lite/configs/userconfig.cfg"
 
 rm /etc/apt/sources.list
 cat > /etc/apt/sources.list <<END
@@ -75,19 +75,19 @@ apt update -y >/dev/null 2>&1
 apt -y upgrade >/dev/null 2>&1
 
 install_packages "rsyslog haveged dirmngr curl software-properties-common sudo rkhunter debsecan debsums passwdqc unattended-upgrades needrestart apt-listchanges apache2-utils"
-cp -f /root/NeXt-Server-Bookworm/configs/needrestart.conf /etc/needrestart/needrestart.conf
-cp -f /root/NeXt-Server-Bookworm/configs/20auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
-cp -f /root/NeXt-Server-Bookworm/configs/50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades
+cp -f /root/NeXt-Server-Lite/configs/needrestart.conf /etc/needrestart/needrestart.conf
+cp -f /root/NeXt-Server-Lite/configs/20auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
+cp -f /root/NeXt-Server-Lite/configs/50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades
 sed_replace_word "email_address=root" "email_address=${NXT_SYSTEM_EMAIL}" "/etc/apt/listchanges.conf"
 sed_replace_word "changeme" "${NXT_SYSTEM_EMAIL}" "/etc/apt/apt.conf.d/50unattended-upgrades"
 
-cp -f /root/NeXt-Server-Bookworm/cronjobs/webserver_backup /etc/cron.daily/
+cp -f /root/NeXt-Server-Lite/cronjobs/webserver_backup /etc/cron.daily/
 chmod +x /etc/cron.daily/webserver_backup
 
-cp -f /root/NeXt-Server-Bookworm/cronjobs/le_cert_alert /etc/cron.d/
+cp -f /root/NeXt-Server-Lite/cronjobs/le_cert_alert /etc/cron.d/
 sed_replace_word "changeme" "${NXT_SYSTEM_EMAIL}" "/etc/cron.d/le_cert_alert"
 
-cp -f /root/NeXt-Server-Bookworm/cronjobs/free_disk_space /etc/cron.daily/
+cp -f /root/NeXt-Server-Lite/cronjobs/free_disk_space /etc/cron.daily/
 sed_replace_word "changeme" "${NXT_SYSTEM_EMAIL}" "/etc/cron.daily/free_disk_space"
 chmod +x /etc/cron.daily/free_disk_space
 }

@@ -4,7 +4,7 @@ update_all_services() {
 
 trap error_exit ERR
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 
 #updating script code base before updating the server!
 update_script
@@ -24,7 +24,7 @@ if [[ ${NXT_IS_INSTALLED} == '1' ]]; then
   #update_fail2ban
 
   echo "15" | dialog --gauge "Updating firewall..." 10 70 0
-  #source /root/NeXt-Server-Bookworm/updates/firewall-update.sh; update_firewall
+  #source /root/NeXt-Server-Lite/updates/firewall-update.sh; update_firewall
 
   echo "30" | dialog --gauge "Updating LibreSSL..." 10 70 0
   update_libressl

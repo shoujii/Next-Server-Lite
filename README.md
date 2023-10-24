@@ -80,7 +80,7 @@ Read the [NeXt-Server Wiki](https://github.com/shoujii/NeXt-Server-Lite/wiki) fo
 Within the cloned repository you'll find the following directories and files, grouping the different installation files and configs in a logic structure. You'll see something like this:
 
 ```
-NeXt-Server-Bookworm/
+NeXt-Server-Lite/
     ├── .github/
     │   ├── issue_template.md
     │
@@ -178,5 +178,5 @@ A big thanks to [George Liu], for some great lines of code!.
 
 ## Copyright and license
 
-Code and documentation copyright 2017-2022 the [NeXt-Server-Bookworm Authors](https://github.com/shoujii/NeXt-Server-Lite/graphs/contributors)
+Code and documentation copyright 2017-2022 the [NeXt-Server-Lite Authors](https://github.com/shoujii/NeXt-Server-Lite/graphs/contributors)
 Code released under the [GNU General Public License v3.0](https://github.com/shoujii/NeXt-Server-Lite/blob/master/LICENSE).

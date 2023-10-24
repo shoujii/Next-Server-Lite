@@ -2,7 +2,7 @@
 
 menu_options_nextcloud() {
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 get_domain
 
 HEIGHT=40
@@ -20,12 +20,12 @@ clear
 case $CHOICE in
 1)
 NEXTCLOUD_PATH_NAME="nextcloud"
-sed_replace_word "NEXTCLOUD_PATH_NAME=\"0"\" "NEXTCLOUD_PATH_NAME=\"${NEXTCLOUD_PATH_NAME}"\" "/root/NeXt-Server-Bookworm/configs/userconfig.cfg"
+sed_replace_word "NEXTCLOUD_PATH_NAME=\"0"\" "NEXTCLOUD_PATH_NAME=\"${NEXTCLOUD_PATH_NAME}"\" "/root/NeXt-Server-Lite/configs/userconfig.cfg"
 ;;
 
 2)
 NEXTCLOUD_PATH_NAME="cloud"
-sed_replace_word "NEXTCLOUD_PATH_NAME=\"0"\" "NEXTCLOUD_PATH_NAME=\"${NEXTCLOUD_PATH_NAME}"\" "/root/NeXt-Server-Bookworm/configs/userconfig.cfg"
+sed_replace_word "NEXTCLOUD_PATH_NAME=\"0"\" "NEXTCLOUD_PATH_NAME=\"${NEXTCLOUD_PATH_NAME}"\" "/root/NeXt-Server-Lite/configs/userconfig.cfg"
 ;;
 
 3)
@@ -40,13 +40,13 @@ NEXTCLOUD_PATH_NAME=$(dialog --clear \
                              )
 if [[ "$NEXTCLOUD_PATH_NAME" =~ ^[a-zA-Z0-9]+$ ]]; then
     if [ ${#NEXTCLOUD_PATH_NAME} -ge 2 ]; then
-       array=($(cat "/root/NeXt-Server-Bookworm/configs/blocked_paths.conf"))
+       array=($(cat "/root/NeXt-Server-Lite/configs/blocked_paths.conf"))
        printf -v array_str -- ',,%q' "${array[@]}"
        if [[ "${array_str},," =~ ,,${NEXTCLOUD_PATH_NAME},, ]]; then
            dialog_msg "[ERROR] Your Nextcloud path ${NEXTCLOUD_PATH_NAME} is already used by the script, please choose another one!"
            dialog --clear
       else
-          sed_replace_word "NEXTCLOUD_PATH_NAME=\"0"\" "NEXTCLOUD_PATH_NAME=\"${NEXTCLOUD_PATH_NAME}"\" "/root/NeXt-Server-Bookworm/configs/userconfig.cfg"
+          sed_replace_word "NEXTCLOUD_PATH_NAME=\"0"\" "NEXTCLOUD_PATH_NAME=\"${NEXTCLOUD_PATH_NAME}"\" "/root/NeXt-Server-Lite/configs/userconfig.cfg"
           break
       fi
     else

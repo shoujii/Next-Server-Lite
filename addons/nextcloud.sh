@@ -4,11 +4,11 @@ install_nextcloud() {
 
 trap error_exit ERR
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 
 install_packages "unzip php-gmp imagemagick"
 
-MYSQL_ROOT_PASS=$(grep -Pom 1 "(?<=^MYSQL_ROOT_PASS: ).*$" /root/NeXt-Server-Bookworm/login_information.txt)
+MYSQL_ROOT_PASS=$(grep -Pom 1 "(?<=^MYSQL_ROOT_PASS: ).*$" /root/NeXt-Server-Lite/login_information.txt)
 NEXTCLOUD_USER=$(username)
 NEXTCLOUD_DB_PASS=$(password)
 NEXTCLOUD_DB_NAME=$(username)
@@ -32,26 +32,26 @@ fi
 
 chown -R www-data:www-data /var/www/${MYDOMAIN}/public/${NEXTCLOUD_PATH_NAME}
 
-cp /root/NeXt-Server-Bookworm/addons/vhosts/_nextcloud.conf /etc/nginx/_nextcloud.conf
+cp /root/NeXt-Server-Lite/addons/vhosts/_nextcloud.conf /etc/nginx/_nextcloud.conf
 sed_replace_word "#include _nextcloud.conf;" "include _nextcloud.conf;" "/etc/nginx/sites-available/${MYDOMAIN}.conf"
 sed_replace_word "change_path" "${NEXTCLOUD_PATH_NAME}" "/etc/nginx/_nextcloud.conf"
 
-touch /root/NeXt-Server-Bookworm/nextcloud_login_data.txt
-echo "--------------------------------------------" >> /root/NeXt-Server-Bookworm/nextcloud_login_data.txt
-echo "Nextcloud" >> /root/NeXt-Server-Bookworm/nextcloud_login_data.txt
-echo "--------------------------------------------" >> /root/NeXt-Server-Bookworm/nextcloud_login_data.txt
-echo "https://${MYDOMAIN}/${NEXTCLOUD_PATH_NAME}" >> /root/NeXt-Server-Bookworm/nextcloud_login_data.txt
-echo "NextcloudDBUser = ${NEXTCLOUD_USER}" >> /root/NeXt-Server-Bookworm/nextcloud_login_data.txt
-echo "Database password = ${NEXTCLOUD_DB_PASS}" >> /root/NeXt-Server-Bookworm/nextcloud_login_data.txt
-echo "NextcloudDBName = ${NEXTCLOUD_DB_NAME}" >> /root/NeXt-Server-Bookworm/nextcloud_login_data.txt
+touch /root/NeXt-Server-Lite/nextcloud_login_data.txt
+echo "--------------------------------------------" >> /root/NeXt-Server-Lite/nextcloud_login_data.txt
+echo "Nextcloud" >> /root/NeXt-Server-Lite/nextcloud_login_data.txt
+echo "--------------------------------------------" >> /root/NeXt-Server-Lite/nextcloud_login_data.txt
+echo "https://${MYDOMAIN}/${NEXTCLOUD_PATH_NAME}" >> /root/NeXt-Server-Lite/nextcloud_login_data.txt
+echo "NextcloudDBUser = ${NEXTCLOUD_USER}" >> /root/NeXt-Server-Lite/nextcloud_login_data.txt
+echo "Database password = ${NEXTCLOUD_DB_PASS}" >> /root/NeXt-Server-Lite/nextcloud_login_data.txt
+echo "NextcloudDBName = ${NEXTCLOUD_DB_NAME}" >> /root/NeXt-Server-Lite/nextcloud_login_data.txt
 
-sed_replace_word "NEXTCLOUD_IS_INSTALLED=\"0"\" "NEXTCLOUD_IS_INSTALLED=\"1"\" "/root/NeXt-Server-Bookworm/configs/userconfig.cfg"
-echo "$NEXTCLOUD_PATH_NAME" >> /root/NeXt-Server-Bookworm/configs/blocked_paths.conf
+sed_replace_word "NEXTCLOUD_IS_INSTALLED=\"0"\" "NEXTCLOUD_IS_INSTALLED=\"1"\" "/root/NeXt-Server-Lite/configs/userconfig.cfg"
+echo "$NEXTCLOUD_PATH_NAME" >> /root/NeXt-Server-Lite/configs/blocked_paths.conf
 
 systemctl -q restart php$PHPVERSION8-fpm.service
 systemctl -q reload nginx.service
 
 dialog_msg "Please save the shown login information on next page"
-cat /root/NeXt-Server-Bookworm/nextcloud_login_data.txt
+cat /root/NeXt-Server-Lite/nextcloud_login_data.txt
 continue_or_exit
 }

@@ -4,7 +4,7 @@ nginx_update_menu() {
 
 trap error_exit ERR
 
-source /root/NeXt-Server-Bookworm/configs/sources.cfg
+source /root/NeXt-Server-Lite/configs/sources.cfg
 set_logs
 
 LATEST_NGINX_VERSION=$(curl -4sL https://nginx.org/en/download.html 2>&1 | egrep -o "nginx\-[0-9.]+\.tar[.a-z]*" | grep -v '.asc' | awk -F "nginx-" '/.tar.gz$/ {print $2}' | sed -e 's|.tar.gz||g' | head -n1 2>&1)
@@ -58,14 +58,14 @@ backup_nginx() {
 update_nginx() {
 
   trap error_exit ERR
-  mkdir -p /root/NeXt-Server-Bookworm/updates/sources/
+  mkdir -p /root/NeXt-Server-Lite/updates/sources/
 
-  cd /root/NeXt-Server-Bookworm/updates/sources/
+  cd /root/NeXt-Server-Lite/updates/sources/
   wget https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-${LIBRESSL_VERSION}.tar.gz
   tar -xzf libressl-${LIBRESSL_VERSION}.tar.gz
 
   systemctl -q stop nginx.service
-  cd /root/NeXt-Server-Bookworm/updates/sources/
+  cd /root/NeXt-Server-Lite/updates/sources/
   wget_tar "https://nginx.org/download/nginx-${LATEST_NGINX_VERSION}.tar.gz"
   tar_file "nginx-${LATEST_NGINX_VERSION}.tar.gz"
   cd nginx-${LATEST_NGINX_VERSION}
@@ -114,13 +114,13 @@ update_nginx() {
   --with-http_mp4_module \
   --with-http_gunzip_module \
   --with-libressl-opt=enable-tls1_3 \
-  --with-libressl=/root/NeXt-Server-Bookworm/updates/sources/libressl-${libressl_VERSION}"
+  --with-libressl=/root/NeXt-Server-Lite/updates/sources/libressl-${libressl_VERSION}"
 
   ./configure $NGINX_OPTIONS $NGINX_MODULES --with-cc-opt='-O2 -g -pipe -Wall -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong -m64 -mtune=generic'
   make -j $(nproc) >>"${make_log}" 2>>"${make_err_log}"
   make install >>"${make_log}" 2>>"${make_err_log}"
 
-  sed_replace_word "NGINX_VERSION="'${NGINX_VERSION}'"" "NGINX_VERSION="'${LATEST_NGINX_VERSION}'"" "/root/NeXt-Server-Bookworm/configs/versions.cfg"
+  sed_replace_word "NGINX_VERSION="'${NGINX_VERSION}'"" "NGINX_VERSION="'${LATEST_NGINX_VERSION}'"" "/root/NeXt-Server-Lite/configs/versions.cfg"
   ##create case for failed update + restore old version value?
   check_nginx
   continue_or_exit
