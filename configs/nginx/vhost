@@ -1,0 +1,51 @@
+server {
+    listen              IPADR:443 ssl reuseport;
+    listen              IPADR:443 quic;
+    #listen             [IP6ADR]:443 ssl reuseport;
+    #listen             [IP6ADR]:443 quic;
+    server_name         MYDOMAIN;
+    set                 $base /var/www/MYDOMAIN;
+    root                $base/public;
+
+    # SSL
+    ssl_certificate     /etc/nginx/ssl/MYDOMAIN-ecc.cer;
+    ssl_certificate_key /etc/nginx/ssl/MYDOMAIN-ecc.key;
+
+    # security
+    include             security.conf;
+
+    # logging
+    access_log          /var/log/nginx/MYDOMAIN.access.log;
+    error_log           /var/log/nginx/MYDOMAIN.error.log warn;
+
+    # index.php
+    index               index.php index.html;
+
+    # index.php fallback
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    include _general.conf;
+    #include _rspamd.conf;
+    #include _wordpress.conf;
+    #include _nextcloud.conf;
+    #include _phpmyadmin.conf;
+    #include _munin.conf;
+
+    # handle .php
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        include      _php_fastcgi.conf;
+    }
+
+    auth_basic_user_file htpasswd/.htpasswd;
+}
+
+# HTTP redirect
+server {
+    listen      IPADR:80 reuseport;
+    #listen     [IP6ADR]:80 reuseport;
+    server_name MYDOMAIN;
+    return      301 https://MYDOMAIN$request_uri;
+}

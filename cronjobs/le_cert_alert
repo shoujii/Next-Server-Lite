@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source /root/NeXt-Server-Bookworm/configs/sources.cfg
+
+if [[ ${NXT_IS_INSTALLED_MAILSERVER} == '1' ]]; then
+    echo "The Let's encrypt certificate for your domain ${MYDOMAIN} is expiring soon, please start the NeXt-Server-Bookworm Script and update your certificate, otherwise your system will get in trouble!" | mail -s "Let's encrypt certificate expiring!" changeme
+fi

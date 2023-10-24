@@ -1,0 +1,11 @@
+#!/bin/bash
+#thanks to https://www.cyberciti.biz/tips/shell-script-to-watch-the-disk-space.html
+
+df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }' | while read output;
+do
+  usep=$(echo $output | awk '{ print $1}' | cut -d'%' -f1  )
+  partition=$(echo $output | awk '{ print $2 }' )
+  if [[ $usep -ge 85 ]]; then
+     echo "$usep percent of the disk space is used. Please check your server, otherwise your system can get in trouble!" | mail -s "Server running out of free disk space" changeme
+  fi
+done
