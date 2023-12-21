@@ -12,7 +12,7 @@ local Su_user=$(whoami)
 local LOCAL_KERNEL_VERSION=$(uname -a | awk '/Linux/ {print $(NF-8)}')
 [ $LOCAL_KERNEL_VERSION != ${KERNEL_VERSION} ] && kernel_check_failed
 
-[ $(grep MemTotal /proc/meminfo | awk '{print $2}') -lt 2000000 ] && error_exit "This script needs at least ~2GB Ram"
+[ $(grep MemTotal /proc/meminfo | awk '{print $2}') -lt 1000000 ] && error_exit "This script needs at least ~1GB Ram"
 
 local FREE=`df -k --output=avail "$PWD" | tail -n1`
 [ $FREE -lt 9437184 ] && error_exit "This script needs at least 9 GB free disk space"

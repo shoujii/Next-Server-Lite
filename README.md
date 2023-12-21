@@ -36,7 +36,7 @@
 A vServer with at least:
 ```
 - 1 CPU Core
-- 2 GB RAM
+- 1 GB RAM
 - KVM virtualized server (Openvz [...] will not work!)
 - The latest "clean" Debian 12.x minimal installed on the server (with all updates!)
 - rDNS set to the desired Domain
