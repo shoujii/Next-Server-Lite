@@ -57,7 +57,7 @@ NGINX_MODULES="--without-http_browser_module \
 --with-http_v3_module \
 --with-openssl=/root/NeXt-Server-Lite/sources/libressl-${LIBRESSL_VERSION}"
 
-./configure $NGINX_OPTIONS $NGINX_MODULES --with-cc-opt='-O2 -g -pipe -Wall -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong -m64 -mtune=generic' 
+./configure $NGINX_OPTIONS $NGINX_MODULES --with-cc-opt="-I../libressl/build/include" --with-ld-opt="-L../libressl/build/lib" --with-debug
 make -j $(nproc)   
 make install  
 
