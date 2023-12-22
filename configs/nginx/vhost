@@ -1,8 +1,8 @@
 server {
     listen              IPADR:443 ssl reuseport;
-    listen              IPADR:443 quic;
+    listen              IPADR:443 http3;
     #listen             [IP6ADR]:443 ssl reuseport;
-    #listen             [IP6ADR]:443 quic;
+    #listen             [IP6ADR]:443 http3;
     server_name         MYDOMAIN;
     set                 $base /var/www/MYDOMAIN;
     root                $base/public;
@@ -38,7 +38,7 @@ server {
         fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
         include      _php_fastcgi.conf;
     }
-
+    
     auth_basic_user_file htpasswd/.htpasswd;
 }
 
@@ -47,5 +47,6 @@ server {
     listen      IPADR:80 reuseport;
     #listen     [IP6ADR]:80 reuseport;
     server_name MYDOMAIN;
+
     return      301 https://MYDOMAIN$request_uri;
 }

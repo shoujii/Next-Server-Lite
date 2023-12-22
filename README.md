@@ -104,9 +104,7 @@ NeXt-Server-Lite/
     │   ├── userconfig.cfg
     │   ├── versions.cfg
     │
-    ├── cronjobs/
-    │   ├── free_disk_space    
-    │   ├── le_cert_alert    
+    ├── cronjobs/  
     │   ├── webserver_backup
     │
     ├── includes/

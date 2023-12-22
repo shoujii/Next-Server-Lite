@@ -37,7 +37,7 @@ do
     if [[ "$MYDOMAIN" =~ $CHECK_DOMAIN ]];then
         break
     else
-        dialog_msg "[ERROR] Should we again practice how a Domain address looks?"
+        dialog_msg "[ERROR] Please enter a valid Domain!"
         dialog --clear
     fi
 done
@@ -56,7 +56,7 @@ else
         if [[ "$MYDOMAIN" =~ $CHECK_DOMAIN ]];then
             break
         else
-            dialog_msg "[ERROR] Should we again practice how a Domain address looks?"
+            dialog_msg "[ERROR] Please enter a valid Domain!"
             dialog --clear
         fi
     done
