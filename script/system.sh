@@ -83,11 +83,4 @@ sed_replace_word "changeme" "${NXT_SYSTEM_EMAIL}" "/etc/apt/apt.conf.d/50unatten
 
 cp -f /root/NeXt-Server-Lite/cronjobs/webserver_backup /etc/cron.daily/
 chmod +x /etc/cron.daily/webserver_backup
-
-cp -f /root/NeXt-Server-Lite/cronjobs/le_cert_alert /etc/cron.d/
-sed_replace_word "changeme" "${NXT_SYSTEM_EMAIL}" "/etc/cron.d/le_cert_alert"
-
-cp -f /root/NeXt-Server-Lite/cronjobs/free_disk_space /etc/cron.daily/
-sed_replace_word "changeme" "${NXT_SYSTEM_EMAIL}" "/etc/cron.daily/free_disk_space"
-chmod +x /etc/cron.daily/free_disk_space
 }
