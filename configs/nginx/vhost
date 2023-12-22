@@ -1,8 +1,8 @@
 server {
-    listen              IPADR:443 ssl reuseport;
-    listen              IPADR:443 http3;
+    listen              IPADR:443 quic reuseport;
+    listen              IPADR:443 ssl;
     #listen             [IP6ADR]:443 ssl reuseport;
-    #listen             [IP6ADR]:443 http3;
+    #listen             [IP6ADR]:443 quic;
     server_name         MYDOMAIN;
     set                 $base /var/www/MYDOMAIN;
     root                $base/public;
@@ -38,7 +38,7 @@ server {
         fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
         include      _php_fastcgi.conf;
     }
-    
+
     auth_basic_user_file htpasswd/.htpasswd;
 }
 
