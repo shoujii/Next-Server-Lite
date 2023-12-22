@@ -126,19 +126,19 @@ unzip $1
 }
 
 function install_packages() {
-DEBIAN_FRONTEND=noninteractive apt -y install $1 "Failed to install $1 packages"
+DEBIAN_FRONTEND=noninteractive apt -y install $1
         ERROR=$?
         if [[ "$ERROR" != '0' ]]; then
-      echo "Error: $1 had an error during installation."
+      echo "Error: $1 had an error $ERROR during installation."
       exit
     fi
 }
 
 function remove_packages() {
-DEBIAN_FRONTEND=noninteractive apt -y remove $1 "Failed to remove $1 packages"
+DEBIAN_FRONTEND=noninteractive apt -y remove $1
         ERROR=$?
         if [[ "$ERROR" != '0' ]]; then
-      echo "Error: $1 had an error during removing."
+      echo "Error: $1 had an error $ERROR during removing."
       exit
     fi
 }
